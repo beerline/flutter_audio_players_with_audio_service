@@ -7,13 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MusicPlayer extends StatefulWidget {
-  @override
-  _MusicPlayerState createState() => _MusicPlayerState();
-}
-
-class _MusicPlayerState extends State<MusicPlayer> {
-  @override
+class MusicPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final mediaQuery = MediaQuery.of(context);
@@ -21,11 +15,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: serviceLocator<MediaPlayerCubit>()),
-
       ],
       child: BlocBuilder<MediaPlayerCubit, MediaPlayerStateAbstract>(
           builder: (context, mediaPlayerState) {
-
         return Container(
           color: theme.colorScheme.primaryVariant,
           child: Column(

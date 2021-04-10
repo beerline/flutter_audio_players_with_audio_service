@@ -1,4 +1,4 @@
-import 'package:audioplayersaudioservice/features/media_player/bloc/media_player_bloc.dart';
+import 'package:audioplayersaudioservice/features/media_player/bloc/media_player_cubit.dart';
 import 'package:audioplayersaudioservice/features/media_player/playing_route_cubit/playing_route_cubit.dart';
 import 'package:audioplayersaudioservice/features/media_player/playing_speed_bloc/playing_speed_bloc.dart';
 import 'package:audioplayersaudioservice/injection_container.dart';
@@ -29,8 +29,7 @@ class TopBar extends StatelessWidget {
                   width: 80,
                   child: TextButton(
                     onPressed: () {
-                      BlocProvider.of<MediaPlayerBloc>(context)
-                          .add(MediaPlayerSpeedIncreaseEvent());
+                      BlocProvider.of<MediaPlayerCubit>(context).increaseSpeed();
                       print('playing speed clic');
                     },
                     child: Text(playingSpeedState.speed.toString() + 'x'),
@@ -47,8 +46,8 @@ class TopBar extends StatelessWidget {
                   builder: (context, playerRouteState) {
                 return TextButton(
                   onPressed: () {
-                    BlocProvider.of<MediaPlayerBloc>(context)
-                        .add(MediaPlayerEarpieceOrSpeakersToggleEvent());
+                    BlocProvider.of<MediaPlayerCubit>(context)
+                        .toggleEarpieceOrSpeakers();
                     print('speaker on tap');
                   },
                   style: ButtonStyle(

@@ -1,4 +1,4 @@
-import 'package:audioplayersaudioservice/features/media_player/bloc/media_player_bloc.dart';
+import 'package:audioplayersaudioservice/features/media_player/bloc/media_player_cubit.dart';
 import 'package:audioplayersaudioservice/injection_container.dart';
 import 'package:audioplayersaudioservice/music_player/bottom_bar.dart';
 import 'package:audioplayersaudioservice/music_player/progress_bar.dart';
@@ -20,10 +20,10 @@ class _MusicPlayerState extends State<MusicPlayer> {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: serviceLocator<MediaPlayerBloc>()),
+        BlocProvider.value(value: serviceLocator<MediaPlayerCubit>()),
 
       ],
-      child: BlocBuilder<MediaPlayerBloc, MediaPlayerStateAbstract>(
+      child: BlocBuilder<MediaPlayerCubit, MediaPlayerStateAbstract>(
           builder: (context, mediaPlayerState) {
 
         return Container(

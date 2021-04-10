@@ -1,4 +1,4 @@
-import 'package:audioplayersaudioservice/features/media_player/bloc/media_player_bloc.dart';
+import 'package:audioplayersaudioservice/features/media_player/bloc/media_player_cubit.dart';
 import 'package:audioplayersaudioservice/features/media_player/playing_position_cudit/playing_position_cubit.dart';
 import 'package:audioplayersaudioservice/injection_container.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,30 +14,25 @@ class BottomBar extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: serviceLocator<MediaPlayerBloc>()),
+        BlocProvider.value(value: serviceLocator<MediaPlayerCubit>()),
         BlocProvider.value(value: serviceLocator<PlayingPositionCubit>()),
       ],
-      child: BlocBuilder<MediaPlayerBloc, MediaPlayerStateAbstract>(
+      child: BlocBuilder<MediaPlayerCubit, MediaPlayerStateAbstract>(
           builder: (context, mediaPlayerState) {
         var _playCallback = () async {
           print('play tap');
 
-          BlocProvider.of<MediaPlayerBloc>(context).add(
-            MediaPlayerPlayEvent(),
-          );
+          BlocProvider.of<MediaPlayerCubit>(context).play();
         };
 
         var _resumeCallback = () async {
           print('resume tap');
 
-          BlocProvider.of<MediaPlayerBloc>(context).add(
-            MediaPlayerResumeEvent(),
-          );
+          BlocProvider.of<MediaPlayerCubit>(context).resume();
         };
 
         var _pauseCallback = () {
-          BlocProvider.of<MediaPlayerBloc>(context)
-              .add(MediaPlayerPauseEvent());
+          BlocProvider.of<MediaPlayerCubit>(context).pause();
           print('pause tap');
         };
 
@@ -59,8 +54,7 @@ class BottomBar extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         print('previous track');
-                        serviceLocator<MediaPlayerBloc>()
-                            .add(MediaPlayerPreviousTrackEvent());
+                        serviceLocator<MediaPlayerCubit>().prevTrack();
                       },
                       style: ButtonStyle(
                         minimumSize: MaterialStateProperty.all(Size(40, 40)),
@@ -76,8 +70,8 @@ class BottomBar extends StatelessWidget {
                         print('backward 15 on tap');
                         Duration newPosition =
                             _playingPosition - Duration(seconds: 15);
-                        BlocProvider.of<MediaPlayerBloc>(context)
-                            .add(MediaPlayerSeekEvent(newPosition));
+                        BlocProvider.of<MediaPlayerCubit>(context)
+                            .seek(newPosition);
                       },
                       style: ButtonStyle(
                         minimumSize: MaterialStateProperty.all(Size(40, 40)),
@@ -129,8 +123,8 @@ class BottomBar extends StatelessWidget {
                         print('forward 30 on tap');
                         Duration newPosition =
                             _playingPosition + Duration(seconds: 30);
-                        BlocProvider.of<MediaPlayerBloc>(context)
-                            .add(MediaPlayerSeekEvent(newPosition));
+                        BlocProvider.of<MediaPlayerCubit>(context)
+                            .seek(newPosition);
                       },
                       style: ButtonStyle(
                         minimumSize: MaterialStateProperty.all(Size(40, 40)),
@@ -146,8 +140,7 @@ class BottomBar extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         print('next track');
-                        serviceLocator<MediaPlayerBloc>()
-                            .add(MediaPlayerNextTrackEvent());
+                        serviceLocator<MediaPlayerCubit>().nextTrack();
                       },
                       style: ButtonStyle(
                         minimumSize: MaterialStateProperty.all(Size(40, 40)),

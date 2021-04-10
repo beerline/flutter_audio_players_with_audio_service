@@ -1,4 +1,4 @@
-part of 'media_player_bloc.dart';
+part of 'media_player_cubit.dart';
 
 @immutable
 abstract class MediaPlayerStateAbstract {

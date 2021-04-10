@@ -1,4 +1,4 @@
-import 'package:audioplayersaudioservice/features/media_player/bloc/media_player_bloc.dart';
+import 'package:audioplayersaudioservice/features/media_player/bloc/media_player_cubit.dart';
 import 'package:audioplayersaudioservice/features/media_player/playing_duration_cubit/playing_duration_cubit.dart';
 import 'package:audioplayersaudioservice/features/media_player/playing_position_cudit/playing_position_cubit.dart';
 import 'package:audioplayersaudioservice/injection_container.dart';
@@ -37,8 +37,7 @@ class ProgressBar extends StatelessWidget {
               max: _playingDurationSeconds.toDouble(),
               onChanged: (v) {
                 Duration newPosition = Duration(seconds: v.round());
-                BlocProvider.of<MediaPlayerBloc>(context)
-                    .add(MediaPlayerSeekEvent(newPosition));
+                BlocProvider.of<MediaPlayerCubit>(context).seek(newPosition);
               },
             ),
             Positioned(

@@ -1,7 +1,7 @@
 import 'package:audioplayersaudioservice/features/audio_track/data/repositories/aurio_track_repository.dart';
 import 'package:audioplayersaudioservice/features/audio_track/domain/repositories/audio_track_repository_abstract.dart';
 import 'package:audioplayersaudioservice/features/audio_track/domain/usecases/get_audio_track_usecase.dart';
-import 'package:audioplayersaudioservice/features/media_player/bloc/media_player_bloc.dart';
+import 'package:audioplayersaudioservice/features/media_player/bloc/media_player_cubit.dart';
 import 'package:audioplayersaudioservice/features/media_player/playing_duration_cubit/playing_duration_cubit.dart';
 import 'package:audioplayersaudioservice/features/media_player/playing_position_cudit/playing_position_cubit.dart';
 import 'package:audioplayersaudioservice/features/media_player/playing_route_cubit/playing_route_cubit.dart';
@@ -31,8 +31,8 @@ init() async {
   serviceLocator.registerLazySingleton<PlayerSeekCubit>(
     () => PlayerSeekCubit(),
   );
-  serviceLocator.registerLazySingleton<MediaPlayerBloc>(
-    () => MediaPlayerBloc(
+  serviceLocator.registerLazySingleton<MediaPlayerCubit>(
+    () => MediaPlayerCubit(
       serviceLocator(),
       serviceLocator(),
       serviceLocator(),

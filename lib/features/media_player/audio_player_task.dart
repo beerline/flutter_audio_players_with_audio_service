@@ -170,11 +170,12 @@ class AudioPlayerTask extends BackgroundAudioTask {
     }
     if (name == PLAY_ACTION) {
       var mediaItem = AudioServiceBackground.mediaItem;
-      _player.play(
+      await _player.play(
         mediaItem.id,
         position: Duration(seconds: 0),
         isLocal: false,
       );
+      _player.setPlaybackRate(playbackRate: arguments);
     }
   }
 }
